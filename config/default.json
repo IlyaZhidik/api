@@ -11,7 +11,21 @@
   },
   "mongodb": "mongodb://127.0.0.1:27017/fight-club",
   "authentication": {
+    "entity": "player",
     "service": "players",
+    "secret": "O840FuhzwtG2MJTHIFuZnKzHmNx+ST+o",
+    "authStrategies": [
+      "local",
+      "jwt"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "algorithm": "HS256",
+      "expiresIn": "20d"
+    },
     "local": {
       "usernameField": "email",
       "passwordField": "password"

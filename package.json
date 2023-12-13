@@ -1,7 +1,7 @@
 {
   "name": "fight-club",
   "description": "club",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "homepage": "",
   "private": true,
   "keywords": [
@@ -11,7 +11,7 @@
   "contributors": [],
   "bugs": {},
   "engines": {
-    "node": ">= 21.1.0"
+    "node": ">= 18.12.1"
   },
   "feathers": {
     "language": "ts",
@@ -57,6 +57,8 @@
     "@feathersjs/socketio": "5.0.12",
     "@feathersjs/transport-commons": "5.0.12",
     "@feathersjs/typebox": "5.0.12",
+    "casl": "^1.1.0",
+    "feathers-casl": "^2.1.1",
     "mongodb": "6.3.0",
     "winston": "^3.11.0"
   },

@@ -5,18 +5,28 @@ import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
 import { charactersClient } from './services/characters/characters.shared'
+
+import { gameClient } from './services/game/game.shared'
+
+import { playersClient } from './services/players/players.shared'
 export type {
   Characters,
   CharactersData,
   CharactersQuery,
-  CharactersPatch
+  CharactersPatch,
 } from './services/characters/characters.shared'
-
-import { gameClient } from './services/game/game.shared'
-export type { Game, GameData, GameQuery, GamePatch } from './services/game/game.shared'
-
-import { playersClient } from './services/players/players.shared'
-export type { Players, PlayersData, PlayersQuery, PlayersPatch } from './services/players/players.shared'
+export type {
+  Game,
+  GameData,
+  GameQuery,
+  GamePatch,
+} from './services/game/game.shared'
+export type {
+  Players,
+  PlayersData,
+  PlayersQuery,
+  PlayersPatch,
+} from './services/players/players.shared'
 
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
@@ -34,9 +44,9 @@ export type ClientApplication = Application<ServiceTypes, Configuration>
  * @see https://dove.feathersjs.com/api/client.html
  * @returns The Feathers client application
  */
-export const createClient = <Configuration = any,>(
+export const createClient = <Configuration = any>(
   connection: TransportConnection<ServiceTypes>,
-  authenticationOptions: Partial<AuthenticationClientOptions> = {}
+  authenticationOptions: Partial<AuthenticationClientOptions> = {},
 ) => {
   const client: ClientApplication = feathers()
 

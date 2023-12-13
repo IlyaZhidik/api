@@ -1,7 +1,15 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html
 import { feathers } from '@feathersjs/feathers'
 import configuration from '@feathersjs/configuration'
-import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors, serveStatic } from '@feathersjs/koa'
+import {
+  koa,
+  rest,
+  bodyParser,
+  errorHandler,
+  parseAuthentication,
+  cors,
+  serveStatic,
+} from '@feathersjs/koa'
 import socketio from '@feathersjs/socketio'
 
 import { configurationValidator } from './configuration'
@@ -10,6 +18,8 @@ import { logError } from './hooks/log-error'
 import { mongodb } from './mongodb'
 import { services } from './services/index'
 import { channels } from './channels'
+
+import { authentication } from './authentication'
 
 const app: Application = koa(feathers())
 
@@ -28,27 +38,28 @@ app.configure(rest())
 app.configure(
   socketio({
     cors: {
-      origin: app.get('origins')
-    }
-  })
+      origin: app.get('origins'),
+    },
+  }),
 )
 app.configure(mongodb)
 app.configure(services)
 app.configure(channels)
+app.configure(authentication)
 
 // Register hooks that run on all service methods
 app.hooks({
   around: {
-    all: [logError]
+    all: [logError],
   },
   before: {},
   after: {},
-  error: {}
+  error: {},
 })
 // Register application setup and teardown hooks here
 app.hooks({
   setup: [],
-  teardown: []
+  teardown: [],
 })
 
 export { app }

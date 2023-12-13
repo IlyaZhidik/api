@@ -7,11 +7,11 @@ import {
   playersDataValidator,
   playersPatchValidator,
   playersQueryValidator,
-  playersResolver,
-  playersExternalResolver,
   playersDataResolver,
   playersPatchResolver,
   playersQueryResolver,
+  playersResolver,
+  playersExternalResolver,
 } from './players.schema'
 
 import type { Application } from '../../declarations'
@@ -34,6 +34,7 @@ export const players = (app: Application) => {
   app.service(playersPath).hooks({
     around: {
       all: [
+        authenticate('jwt'),
         schemaHooks.resolveExternal(playersExternalResolver),
         schemaHooks.resolveResult(playersResolver),
       ],

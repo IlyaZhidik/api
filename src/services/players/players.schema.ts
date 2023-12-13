@@ -1,4 +1,5 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
+import { passwordHash } from '@feathersjs/authentication-local'
 import { resolve } from '@feathersjs/schema'
 import {
   Type,
@@ -30,7 +31,9 @@ export const playersResolver = resolve<Players, HookContext<PlayersService>>({})
 export const playersExternalResolver = resolve<
   Players,
   HookContext<PlayersService>
->({})
+>({
+  password: async () => undefined,
+})
 
 // Schema for creating new entries
 export const playersDataSchema = Type.Omit(playersSchema, ['_id'], {
@@ -44,7 +47,9 @@ export const playersDataValidator = getValidator(
 export const playersDataResolver = resolve<
   Players,
   HookContext<PlayersService>
->({})
+>({
+  password: passwordHash({ strategy: 'local' }),
+})
 
 // Schema for updating existing entries
 export const playersPatchSchema = Type.Partial(playersSchema, {
