@@ -1,0 +1,17 @@
+import { AuthenticationService } from '@feathersjs/authentication'
+import { LocalStrategy } from '@feathersjs/authentication-local'
+import type { Application } from './declarations'
+
+declare module './declarations' {
+  interface ServiceTypes {
+    authentication: AuthenticationService
+  }
+}
+
+export const authentication = (app: Application) => {
+  const authentication = new AuthenticationService(app)
+
+  authentication.register('local', new LocalStrategy())
+
+  app.use('authentication', authentication)
+}

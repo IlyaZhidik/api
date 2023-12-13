@@ -1,0 +1,85 @@
+{
+  "name": "fight-club",
+  "description": "club",
+  "version": "0.0.1",
+  "homepage": "",
+  "private": true,
+  "keywords": [
+    "feathers"
+  ],
+  "author": {},
+  "contributors": [],
+  "bugs": {},
+  "engines": {
+    "node": ">= 21.1.0"
+  },
+  "feathers": {
+    "language": "ts",
+    "packager": "yarn",
+    "database": "mongodb",
+    "framework": "koa",
+    "transports": [
+      "rest",
+      "websockets"
+    ],
+    "schema": "typebox"
+  },
+  "directories": {
+    "lib": "src",
+    "test": "test"
+  },
+  "files": [
+    "lib/client.js",
+    "lib/**/*.d.ts",
+    "lib/**/*.shared.js"
+  ],
+  "main": "lib/client",
+  "scripts": {
+    "dev": "nodemon -x ts-node src/index.ts",
+    "compile": "shx rm -rf lib/ && tsc",
+    "start": "node lib/",
+    "prettier": "npx prettier \"**/*.ts\" --write",
+    "mocha": "cross-env NODE_ENV=test mocha test/ --require ts-node/register --recursive --extension .ts --exit",
+    "test": "npm run mocha",
+    "bundle:client": "npm run compile && npm pack --pack-destination ./public"
+  },
+  "dependencies": {
+    "@feathersjs/adapter-commons": "5.0.12",
+    "@feathersjs/authentication": "5.0.12",
+    "@feathersjs/authentication-client": "5.0.12",
+    "@feathersjs/authentication-local": "^5.0.12",
+    "@feathersjs/configuration": "5.0.12",
+    "@feathersjs/errors": "5.0.12",
+    "@feathersjs/feathers": "5.0.12",
+    "@feathersjs/koa": "5.0.12",
+    "@feathersjs/mongodb": "5.0.12",
+    "@feathersjs/schema": "5.0.12",
+    "@feathersjs/socketio": "5.0.12",
+    "@feathersjs/transport-commons": "5.0.12",
+    "@feathersjs/typebox": "5.0.12",
+    "mongodb": "6.3.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@feathersjs/cli": "5.0.12",
+    "@feathersjs/rest-client": "5.0.12",
+    "@types/mocha": "10.0.6",
+    "@types/node": "20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "axios": "1.6.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^39.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "mocha": "10.2.0",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.1",
+    "shx": "0.3.4",
+    "ts-node": "10.9.1",
+    "typescript": "5.3.2"
+  }
+}
