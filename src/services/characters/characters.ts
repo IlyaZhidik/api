@@ -11,7 +11,7 @@ import {
   charactersExternalResolver,
   charactersDataResolver,
   charactersPatchResolver,
-  charactersQueryResolver
+  charactersQueryResolver,
 } from './characters.schema'
 
 import type { Application } from '../../declarations'
@@ -28,7 +28,7 @@ export const characters = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: charactersMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
+    events: [],
   })
   // Initialize hooks
   app.service(charactersPath).hooks({
@@ -36,32 +36,45 @@ export const characters = (app: Application) => {
       all: [
         authenticate('jwt'),
         schemaHooks.resolveExternal(charactersExternalResolver),
-        schemaHooks.resolveResult(charactersResolver)
-      ]
+        schemaHooks.resolveResult(charactersResolver),
+      ],
     },
     before: {
       all: [
         schemaHooks.validateQuery(charactersQueryValidator),
-        schemaHooks.resolveQuery(charactersQueryResolver)
+        schemaHooks.resolveQuery(charactersQueryResolver),
       ],
-      find: [],
-      get: [],
+      find: [
+        (context) => {
+          context.arguments[0].query.playerId = context.arguments[0].player._id
+        },
+      ],
+      get: [
+        (context) => {
+          console.log(context.arguments)
+          // context.arguments[0].playerId = context.arguments[1].player._id
+        },
+      ],
       create: [
+        (context) => {
+          console.log(context.arguments)
+          context.arguments[0].playerId = context.arguments[1].player._id
+        },
         schemaHooks.validateData(charactersDataValidator),
-        schemaHooks.resolveData(charactersDataResolver)
+        schemaHooks.resolveData(charactersDataResolver),
       ],
       patch: [
         schemaHooks.validateData(charactersPatchValidator),
-        schemaHooks.resolveData(charactersPatchResolver)
+        schemaHooks.resolveData(charactersPatchResolver),
       ],
-      remove: []
+      remove: [],
     },
     after: {
-      all: []
+      all: [],
     },
     error: {
-      all: []
-    }
+      all: [],
+    },
   })
 }
 

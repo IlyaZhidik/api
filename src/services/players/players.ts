@@ -34,10 +34,14 @@ export const players = (app: Application) => {
   app.service(playersPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
         schemaHooks.resolveExternal(playersExternalResolver),
         schemaHooks.resolveResult(playersResolver),
       ],
+      find: [authenticate('jwt')],
+      get: [authenticate('jwt')],
+      create: [],
+      patch: [authenticate('jwt')],
+      remove: [authenticate('jwt')],
     },
     before: {
       all: [

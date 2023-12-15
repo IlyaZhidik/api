@@ -13,13 +13,20 @@ import { dataValidator, queryValidator } from '../../validators'
 import type { GameService } from './game.class'
 import { playersSchema } from '../players/players.schema'
 import { resolveObjectId, resolveQueryObjectId } from '../../resolvers/ibjectId'
+import { ObjectId } from 'mongodb'
 
 // Main data model schema
 export const gameSchema = Type.Object(
   {
     _id: ObjectIdSchema(),
-    winnerId: ObjectIdSchema(),
+    winnerId: Type.Optional(ObjectIdSchema()),
     winner: Type.Ref(playersSchema),
+    name: Type.String(),
+    enemyId: Type.Optional(ObjectIdSchema()),
+    hostId: ObjectIdSchema(),
+    rounds: Type.Number(),
+    enemyCharacterId: Type.Optional(ObjectIdSchema()),
+    hostCharacterId: ObjectIdSchema(),
   },
   { $id: 'Game', additionalProperties: false },
 )
@@ -27,6 +34,9 @@ export type Game = Static<typeof gameSchema>
 export const gameValidator = getValidator(gameSchema, dataValidator)
 export const gameResolver = resolve<Game, HookContext<GameService>>({
   winnerId: resolveObjectId,
+  enemyId: resolveObjectId,
+  enemyCharacterId: resolveObjectId,
+  hostId: resolveObjectId,
 })
 
 export const gameExternalResolver = resolve<Game, HookContext<GameService>>({})
@@ -47,6 +57,9 @@ export type GamePatch = Static<typeof gamePatchSchema>
 export const gamePatchValidator = getValidator(gamePatchSchema, dataValidator)
 export const gamePatchResolver = resolve<Game, HookContext<GameService>>({
   winnerId: resolveObjectId,
+  enemyId: resolveObjectId,
+  enemyCharacterId: resolveObjectId,
+  hostId: resolveObjectId,
 })
 
 // Schema for allowed query properties
@@ -68,4 +81,7 @@ export type GameQuery = Static<typeof gameQuerySchema>
 export const gameQueryValidator = getValidator(gameQuerySchema, queryValidator)
 export const gameQueryResolver = resolve<GameQuery, HookContext<GameService>>({
   winnerId: resolveQueryObjectId,
+  enemyId: resolveQueryObjectId,
+  enemyCharacterId: resolveQueryObjectId,
+  hostId: resolveQueryObjectId,
 })
