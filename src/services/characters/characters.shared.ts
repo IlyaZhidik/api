@@ -6,7 +6,7 @@ import type {
   CharactersData,
   CharactersPatch,
   CharactersQuery,
-  CharactersService
+  CharactersService,
 } from './characters.class'
 
 export type { Characters, CharactersData, CharactersPatch, CharactersQuery }
@@ -18,13 +18,19 @@ export type CharactersClientService = Pick<
 
 export const charactersPath = 'characters'
 
-export const charactersMethods = ['find', 'get', 'create', 'patch', 'remove'] as const
+export const charactersMethods = [
+  'find',
+  'get',
+  'create',
+  'patch',
+  'remove',
+] as const
 
 export const charactersClient = (client: ClientApplication) => {
   const connection = client.get('connection')
 
   client.use(charactersPath, connection.service(charactersPath), {
-    methods: charactersMethods
+    methods: charactersMethods,
   })
 }
 
