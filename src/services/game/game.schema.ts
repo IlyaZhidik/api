@@ -5,6 +5,7 @@ import {
   getValidator,
   querySyntax,
   ObjectIdSchema,
+  StringEnum,
 } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 
@@ -24,9 +25,9 @@ export const gameSchema = Type.Object(
     name: Type.String(),
     enemyId: Type.Optional(ObjectIdSchema()),
     hostId: ObjectIdSchema(),
-    rounds: Type.Number(),
     enemyCharacterId: Type.Optional(ObjectIdSchema()),
     hostCharacterId: ObjectIdSchema(),
+    whoHostCharacter: StringEnum(['warrior', 'mage']),
   },
   { $id: 'Game', additionalProperties: false },
 )
