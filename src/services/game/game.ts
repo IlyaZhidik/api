@@ -41,7 +41,7 @@ export const game = (app: Application) => {
     },
     before: {
       all: [
-        schemaHooks.validateQuery(gameQueryValidator),
+        // schemaHooks.validateQuery(gameQueryValidator),
         schemaHooks.resolveQuery(gameQueryResolver),
       ],
       find: [],
